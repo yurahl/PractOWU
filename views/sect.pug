@@ -1,0 +1,50 @@
+extends ./templates/layout
+block header
+    header
+        a(href='/api/sects')=sect.name
+block content
+    div.main
+        h2.title Sect`s description:
+        p.title Magic type:
+            span=' '+sect.magic
+        p.title Rating:
+            span=' '+sect.rating
+
+        if members.length > 1
+            h2.title Members:
+        else
+            h2.title Member:
+        ul
+            each member in members
+                li
+                    a(href='/api/members/' + member._id )=member.name + ' ' + member.surname + ' - ' + member.rank
+
+
+        h2.title Registration:
+        #registmemberform
+            form(action='/api/members' method='post')
+                input(type='text' name='name' placeholder='Member`s name' required).input
+                br
+                input(type='text' name='surname' placeholder='Member`s surname' required).input
+                br
+                input(type='text' name='rank' value='member' placeholder='member' ).input
+                br
+                input(type='text' name='age' placeholder='Member`s age' required).input
+                br
+                input(type='text' name='sectId' value= sect._id placeholder='Sect`s ID').input
+                br
+                input(type='submit' value='Create member').submit
+        #sect-form
+            h1.title Update form:
+            form(action='/api/sects/update/'+ sect._id method='post')
+                input(type='text' name='name' placeholder='Sect`s name' value=sect.name required).input
+                br
+                input(type='text' name='magic' placeholder='Magic type' value=sect.magic required).input
+                br
+                input(type='submit' value='Update sect').submit
+
+
+block footer
+    footer
+        a(href='#' onclick='visibleSect()') Update
+        a(href='/api/sects/delete/'+sect._id) Delete

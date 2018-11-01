@@ -1,0 +1,29 @@
+extends ./templates/layout
+block header
+    header
+        a(href='/api/sects/'+sect._id)=sect.name
+
+block content
+    div.main
+       p.title Member`s name:
+           span=' '+member.name + ' ' + member.surname
+       p.title Member`s rank:
+           span=' '+member.rank
+       p.title Member`s rating:
+           span=' '+member.rating
+    #updatememberform
+        h1.title Update form:
+        form(action='/api/members/update/'+member._id  method='post')
+            input(type='text' name='name' placeholder='Member`s name' required).input
+            br
+            input(type='text' name='surname' placeholder='Member`s surname' required).input
+            br
+            input(type='text' name='rank' value='member' placeholder='member' ).input
+            br
+            input(type='text' name='age' placeholder='Member`s age' required).input
+            br
+            input(type='submit' value='Create member').submit
+block footer
+    footer
+        a(href='#' onclick='visible()')#updatemember Update
+        a(href='/api/members/delete/'+member._id) Delete

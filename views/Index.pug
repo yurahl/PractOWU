@@ -1,0 +1,26 @@
+extends ./templates/layout
+block header
+    header
+        h1 Welcome to hell
+block content
+    div.main
+
+        if sects.length > 1
+            h2.title List of Sects
+        else
+            h2.title Sect:
+
+        ul
+            each sect in sects
+                li
+                    a(href='/api/sects/'+ sect._id)=sect.name + ' :  '+ sect.magic + ' magic'
+        form(action='/api/sects' method='post')
+            input(type='text' name='name' placeholder='Sect`s name' required).input
+            br
+            input(type='text' name='magic' placeholder='Magic type' required).input
+            br
+            input(type='submit' value='Create sect').submit
+
+block footer
+    footer
+       p Developed by Yura H.
